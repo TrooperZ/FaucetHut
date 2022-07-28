@@ -19,13 +19,7 @@ entries = db['entries']
 
 statusDB = {}
 
-ses.headers = {
-    'referer': 'https://magiceden.io/',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36',
-    'accept': 'application/json'
-}
-
-scraper = cloudscraper.create_scraper(sess=ses, interpreter='nodejs')
+scraper = cloudscraper.create_scraper()
 
 
 
