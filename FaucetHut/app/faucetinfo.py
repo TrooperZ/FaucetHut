@@ -8,6 +8,7 @@ import pymongo
 import os
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
+import libs.bananopy as ban
 
 load_dotenv()
 ua = UserAgent()
@@ -18,7 +19,6 @@ entries = db['entries']
 
 statusDB = {}
 
-ses = requests.Session()
 ses.headers = {
     'referer': 'https://magiceden.io/',
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36',
@@ -27,7 +27,7 @@ ses.headers = {
 
 scraper = cloudscraper.create_scraper(sess=ses, interpreter='nodejs')
 
-import libs.bananopy as ban
+
 
 
 intervals = (
