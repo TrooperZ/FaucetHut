@@ -3,15 +3,14 @@ import time
 import datetime
 import concurrent
 import cloudscraper
-from fake_useragent import UserAgent
 import pymongo
 import os
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
 import libs.bananopy as ban
+import requests
 
 load_dotenv()
-ua = UserAgent()
 mpass = os.getenv('MONGO_PASS')
 client = pymongo.MongoClient(f"mongodb+srv://banfaucet:{mpass}@cluster0.qte9l.mongodb.net/?retryWrites=true&w=majority")
 db = client['urls']
