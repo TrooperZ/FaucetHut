@@ -17,8 +17,6 @@ client = pymongo.MongoClient(f"mongodb+srv://banfaucet:{mpass}@cluster0.qte9l.mo
 db = client['urls']
 entries = db['entries']
 
-statusDB = {}
-
 scraper = cloudscraper.create_scraper()
 
 
