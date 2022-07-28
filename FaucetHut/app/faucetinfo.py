@@ -1,13 +1,10 @@
 from dotenv import load_dotenv
 import time
 import datetime
-import requests
-import json
 import concurrent
 import cloudscraper
 from fake_useragent import UserAgent
 import pymongo
-import motor.motor_asyncio
 import os
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
