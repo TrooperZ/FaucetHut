@@ -1,0 +1,90 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<center>
+    <h1>Trooper's Banano Faucet Hut</h1>
+    <h3>Donations are welcome at <em>ban_396zzoypz8pabdtagh5enoa55pu7izwmzzf3a1qp5shmtqfbc8cxsfrfsgzj</em></h3>
+    <p>Welcome a collection of Banano faucets! This site contains all the faucets that are known of for Banano.</p>
+    <p>To add a new faucet to the collection or report an issue/suggestions, use <a href="https://forms.gle/Cs6QbYT8Zwy4TQ1g8">this</a> link.</p>
+    <p>Enjoy your stay here and make sure to donate to the faucet owners as well.</p>
+    <p>Make sure to join the <a href="https://chat.banano.cc/">Banano Discord Server</a>!</p>
+</center>
+<div class="jumbotron">
+    <h2>Banano Faucets</h2>
+    <p>Refresh to update the list, it may take a while as it pings each faucet.</p>
+    <script>
+        const arrFaucet = [
+            "https://nanswap.com/get-free-banano?ref=tbanhut",
+            "http://bananofaucet.cc/",
+            "http://faucet.prussia.dev/",
+            "https://banano-faucet.herokuapp.com/",
+            "https://getbanano.cc/",
+            "https://bananoplanet.cc/faucet",
+            "https://www.banbucket.ninja",
+            "https://faucet.bananotime.com/",
+            "https://gorillanation.ga/",
+            "https://www.bananofaucet.club/",
+            "https://getban.csquared.nz/",
+            "https://bonobo.cc/faucet",
+            "https://faucet.banoboto.repl.co/",
+            'https://baucarp.herokuapp.com/',
+            'https://www.only-bans.cc/',
+            'https://ban.earns.cc/',
+            'https://monkeytalks.cc/t',
+            'https://icanhaznano.monke42.tk/',
+            'https://trybanano.com/',
+            'https://www.devinmontes.com/',
+            'https://banhub.com/',
+            'https://faucet.bananoforest.com/',
+            'https://bananodrip.com/',
+            'https://faucet.bananotime.com/',
+            'https://banfaucet.perrypal21.repl.co/',
+            'https://pronouns.h.prussiafan.club/',
+            'https://www.cryptojungles.com/',
+        ];
+        function openFaucetList() {
+            arrFaucet.forEach(openFaucet);
+        }
+        function openFaucet(faucetUrl) {
+            window.open(faucetUrl, Math.random().toString(36).substr(2, 9));
+        }
+    </script>
+    <h6>🔴 = Down, 🟡 = Up but may not be accessable, 🟢 = Up</h6>
+    <button onclick="openFaucetList();" class="btn btn-primary btn-large"><div class="btntext">OPEN ALL (Popups need to be allowed)</div></button>
+
+
+    <br />
+    <table style="width:100%">
+        {% if acclist %}
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Duration</th>
+            <th>Payout</th>
+            <th>Balance</th>
+            <th>Last TX</th>
+            <th></th>
+        </tr>
+        {% endif %}
+
+        <!-- table rows -->
+        {% for dict_item in acclist %}
+        <tr>
+            <td>{{ dict_item['status'] }}</td>
+            <td> {{ dict_item['name'] }} </td>
+            <td> {{ dict_item['dur'] }} </td>
+            <td> {{ dict_item['pay'] }} </td>
+            <td> {{ dict_item['bal'] }} </td>
+            <td><a href="{{dict_item['lasttx_hash']}}">{{ dict_item['lasttx'] }}</a> </td>
+            <td><a href="{{dict_item['url']}}" target="_blank" class="btn btn-primary btn-large"><div class="btntext"> Claim &raquo;</div></a> </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Overpass+Mono&display=swap");
+
+@font-face {
+    font-family: "filson-pro";
+    font-weight: 500;
+    src: url("https://banano.cc/fonts/filson-pro/filson-pro-500.woff2") format("woff2"), url("https://banano.cc/fonts/filson-pro/filson-pro-500.woff") format("woff");
+    font-display: block;
+    font-style: normal;
+}
+    
+body::-webkit-scrollbar
+
+{
+    width: 1em;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+
+.p h1 h2 h3 h4 h5 h6 {
+    color: ghostwhite;
+}
+
+body {
+    padding-top: 50px;
+    color: ghostwhite;
+    padding-bottom: 20px;
+    background-image: url("https://faucet.banoboto.repl.co/images/jungle.svg");
+}
+
+.btntext {
+    color: #7B7263;
+    font-weight: bold;
+}
+
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.jumbotron {
+    background-color: #232323;
+}
+
+
