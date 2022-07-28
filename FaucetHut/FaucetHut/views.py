@@ -4,7 +4,7 @@ Routes and views for the flask application.
 
 from datetime import datetime
 from flask import render_template
-from BackToGenesis import app
+from FaucetHut import app
 from app import faucetinfo
 
 @app.route('/')
