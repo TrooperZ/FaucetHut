@@ -1,13 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Overpass+Mono&display=swap");
 
-@font-face {
-    font-family: "filson-pro";
-    font-weight: 500;
-    src: url("https://banano.cc/fonts/filson-pro/filson-pro-500.woff2") format("woff2"), url("https://banano.cc/fonts/filson-pro/filson-pro-500.woff") format("woff");
-    font-display: block;
-    font-style: normal;
+
+
+a:link, a:visited {
+    color: #fbdd11;
 }
-    
+
+* {
+    font-family: filson-pro;
+}
+
 body::-webkit-scrollbar
 
 {
@@ -24,8 +25,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 
-.p h1 h2 h3 h4 h5 h6 {
+p h1 h2 h3 h4 h5 h6 {
     color: ghostwhite;
+
 }
 
 body {

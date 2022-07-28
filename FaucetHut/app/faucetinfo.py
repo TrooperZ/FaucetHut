@@ -58,7 +58,7 @@ def last_tx(acc):
     class tx:
         timesincetx = display_time(int(time.time() - int(history[0]['local_timestamp'])))
         hashlink = "https://creeper.banano.cc/hash/" + history[0]['hash']
-        bal = round(ban.ban_from_raw(int(ban.get_account_balance(acc).balance)), 3)
+        bal = round(ban.ban_from_raw(int(ban.get_account_balance(acc).balance)), 2)
     return tx
 
 def checksite_cmd(url):
@@ -86,7 +86,7 @@ def checksite(url):
         status = checksite_cmd(url)
         entries.insert_one({'url':url, 'status':status, 'time':time.time()})
         return status
-    if time.time() - entryresult['time'] > 10000:
+    if time.time() - entryresult['time'] > 8000:
         status = checksite_cmd(url)
         entries.update_one({'_id':entryresult['_id']},{ "$set":{'_id':entryresult['_id'],'url':url, 'status':status, 'time':time.time()}})
         return status
@@ -182,14 +182,11 @@ def returndata():
             {'name': 'Pronouns Faucet', 'dur': '1 Day', 'pay': '0.75 BAN'},
             {'name': 'Crypto Jungles', 'dur': '1 Day', 'pay': '0.1 BAN'}
 ]
-    print(len(addrs))
-    print(len(data))
-    print(len(urls))
+
     with ThreadPoolExecutor(max_workers=10) as pool:
         returned = list(pool.map(checksite,urls))
 
     for (a, c, d) in zip(addrs, returned, data):
-        print(a)
         d['status'] = c
         d['url'] = urls[index1] 
         if a == "N/A":

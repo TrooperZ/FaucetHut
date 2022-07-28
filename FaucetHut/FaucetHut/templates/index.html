@@ -5,7 +5,7 @@
 <center>
     <h1>Trooper's Banano Faucet Hut</h1>
     <h3>Donations are welcome at <em>ban_396zzoypz8pabdtagh5enoa55pu7izwmzzf3a1qp5shmtqfbc8cxsfrfsgzj</em></h3>
-    <p>Welcome a collection of Banano faucets! This site contains all the faucets that are known of for Banano.</p>
+    <p>Welcome to a collection of Banano faucets! This site contains all the faucets that are known of for Banano.</p>
     <p>To add a new faucet to the collection or report an issue/suggestions, use <a href="https://forms.gle/Cs6QbYT8Zwy4TQ1g8">this</a> link.</p>
     <p>Enjoy your stay here and make sure to donate to the faucet owners as well.</p>
 </center>
@@ -71,10 +71,10 @@
         {% for dict_item in acclist %}
         <tr>
             <td>{{ dict_item['status'] }}</td>
-            <td> {{ dict_item['name'] }} </td>
-            <td> {{ dict_item['dur'] }} </td>
-            <td> {{ dict_item['pay'] }} </td>
-            <td> {{ dict_item['bal'] }} </td>
+            <td> {{ dict_item['name'] }}</td>
+            <td> {{ dict_item['dur'] }}</td>
+            <td> {{ dict_item['pay'] }}</td>
+            <td> {{ dict_item['bal'] }}</td>
             <td><a href="{{dict_item['lasttx_hash']}}">{{ dict_item['lasttx'] }}</a> </td>
             <td><a href="{{dict_item['url']}}" target="_blank" class="btn btn-primary btn-large"><div class="btntext"> Claim &raquo;</div></a> </td>
         </tr>
