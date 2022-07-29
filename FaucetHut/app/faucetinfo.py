@@ -41,13 +41,29 @@ def display_time(seconds, granularity=2):
     return ", ".join(result[:granularity])
 
 
+def formatNumber(num):
+  if num % 1 == 0:
+    return int(num)
+  else:
+    return num
+
 def last_tx(acc):
-    history = ban.get_account_history(acc, 1).history
+    history = ban.get_account_history(acc, 100).history
+    payoutamts_list = []
+    for i in history:
+        if i['type'] == "receive":
+            continue
+        payoutamts_list.append(float(i['amount_decimal']))
     class tx:
         timesincetx = display_time(int(time.time() - int(history[0]['local_timestamp'])))
         hashlink = "https://creeper.banano.cc/hash/" + history[0]['hash']
-        bal = round(ban.ban_from_raw(int(ban.get_account_balance(acc).balance)), 2)
+        payoutamts = str(formatNumber(round(min(payoutamts_list), 3))) + "-" + str(formatNumber(round(max(payoutamts_list), 3)))
     return tx
+
+def check_bal(accs):
+    bals = ban.get_accounts_balances(accs)
+    return bals
+
 
 def checksite_cmd(url):
     try:
@@ -80,22 +96,7 @@ def checksite(url):
         return status
     return entryresult['status']        
 
-def formatNumber(num):
-  if num % 1 == 0:
-    return int(num)
-  else:
-    return num
-
-def payout_minmax(addr):
-    payoutamts = []
-    history = ban.get_account_history(addr, 100).history
-    for i in history:
-        if i['type'] == "receive":
-            continue
-        payoutamts.append(float(i['amount_decimal']))
-    return str(formatNumber(round(min(payoutamts), 3))) + "-" + str(formatNumber(round(max(payoutamts), 3)))
-
-    
+   
 
 
 def returndata():
@@ -146,7 +147,7 @@ def returndata():
         "ban_3jzi3modbcrfq7gds5nmudstw3kghndqb1k48twhqxds3ytyj4k7cf79q5ij",
         "ban_3x8hzeb8spb6e36y7yjgo6esmeahgphq1mhp545ofouuu5enrne5nzwkdasb",
         "ban_1on1ybanskzzsqize1477wximtkdzrftmxqtajtwh4p4tg1w6awn1hq677cp",
-        "N/A",
+        "ban_396zzoypz8pabdtagh5enoa55pu7izwmzzf3a1qp5shmtqfbc8cxsfrfsgzj", #NOT EARNS.CC ACCOUNT
         "ban_1monkeyt1x77a1rp9bwtthajb8odapbmnzpyt8357ac8a1bcron34i3r9y66",
         "ban_1monkecrqoqr6j6qzhtd9i8x49ujdnoqt7ramt9jmhd543icsrx5accoqtd5",
         "ban_33umod1td1x1szyjxj1a4c66j8s5escrii6ptnykz9axcsce93dqguwgwf78",
@@ -185,7 +186,8 @@ def returndata():
             {'name': 'PerryPal', 'dur': '1 Day'},
             {'name': 'Pronouns Faucet', 'dur': '1 Day'},
             {'name': 'Crypto Jungles', 'dur': '1 Day'}
-]
+    ]
+    balances = check_bal(addrs)
 
     with ThreadPoolExecutor(max_workers=10) as pool:
         returned = list(pool.map(checksite,urls))
@@ -200,8 +202,8 @@ def returndata():
             d['pay'] = "N/A"
         else:
             lasttx = last_tx(a)
-            d['pay'] = payout_minmax(a)
-            d['bal'] = lasttx.bal
+            d['pay'] = lasttx.payoutamts
+            d['bal'] = round(float(balances[a]['balance_decimal']), 2)
             d['lasttx'] = lasttx.timesincetx
             d['lasttx_hash'] = lasttx.hashlink
         index1 = index1 + 1

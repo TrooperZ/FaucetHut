@@ -50,7 +50,7 @@ def get_account_history(account, count, raw="false", head="", offset=0, reverse=
     response = post_get(API, payload)
     history.account = response['account']
     history.history = response['history']
-    history.previous = response['previous']
+    #history.previous = response['previous']
     return history
 
 
@@ -109,7 +109,7 @@ def get_weight(account):
 
 def get_accounts_balances(accounts):
     payload = {"action": "accounts_balances",
-               "account": accounts}
+               "accounts": accounts}
     response = post_get(API, payload)
     balances = response['balances']
     return balances
