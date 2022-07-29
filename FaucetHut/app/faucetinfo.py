@@ -78,9 +78,25 @@ def checksite(url):
         status = checksite_cmd(url)
         entries.update_one({'_id':entryresult['_id']},{ "$set":{'_id':entryresult['_id'],'url':url, 'status':status, 'time':time.time()}})
         return status
-        
+    return entryresult['status']        
+
+def formatNumber(num):
+  if num % 1 == 0:
+    return int(num)
+  else:
+    return num
+
+def payout_minmax(addr):
+    payoutamts = []
+    history = ban.get_account_history(addr, 100).history
+    for i in history:
+        if i['type'] == "receive":
+            continue
+        payoutamts.append(float(i['amount_decimal']))
+    return str(formatNumber(round(min(payoutamts), 3))) + "-" + str(formatNumber(round(max(payoutamts), 3)))
+
     
-    return entryresult['status']
+
 
 def returndata():
     index1 = 0
@@ -133,7 +149,7 @@ def returndata():
         "N/A",
         "ban_1monkeyt1x77a1rp9bwtthajb8odapbmnzpyt8357ac8a1bcron34i3r9y66",
         "ban_1monkecrqoqr6j6qzhtd9i8x49ujdnoqt7ramt9jmhd543icsrx5accoqtd5",
-        "ban_3x4ya94gh6b8to54su8xy7nwys9n1mn5ydjn6sq4smq9fx9qi4qw1bguab7o",
+        "ban_33umod1td1x1szyjxj1a4c66j8s5escrii6ptnykz9axcsce93dqguwgwf78",
         "ban_1barre1777qqdcg86788tk6ojy9jmkyb8ridreezbgkhr7btnoqcntejrxhf",
         "ban_1zgdj86ohh7zbcoqkc8t7n15x9cnyfrefm6wsignd88xdozo9tsn8cg8jtsn",
         "ban_3sinkoff1yj9z5fougwao1gbjtsmb98u1j5p9kcrndqcc4irdxgzsjbem96e",
@@ -142,33 +158,33 @@ def returndata():
         "ban_3eeq61ea33jdds5x37otx51esi8wsnxxjc8spjajyq7pj8h3nodkd19pride",
         "ban_3mkng3drofj13oo9dfpdgctayaskydr8t58j7pp6xo8564ko4y4ngboyyqxm"]
         
-    data =  [{'name': 'NanSwap Faucet', 'dur': '1 Day', 'pay': '0.1 BAN'},
-            {'name': 'BananoFaucet.cc', 'dur': '1 Week', 'pay': '0-42 BAN'},
-            {'name': 'Prussia Faucet', 'dur': '1 Day', 'pay': '0.01-0.1 BAN'},
-            {'name': 'TNV Banano Faucet', 'dur': '1 Day', 'pay': '0.04 BAN'},
-            {'name': "iMalFect's faucet", 'dur': '1 Week', 'pay': 'Varied'},
-            {'name': 'BananoPlanet.cc', 'dur': '2 Hours', 'pay': 'Varied'},
-            {'name': 'BanBucket Ninja', 'dur': '15 Hours', 'pay': '0.001-0.05 BAN'},
-            {'name': 'BananoTime', 'dur': 'N/A', 'pay': '0.01-0.1 BAN'},
-            {'name': 'GorillaNation', 'dur': '1 Day', 'pay': '0.01 BAN'},
+    data =  [{'name': 'NanSwap Faucet', 'dur': '1 Day'},
+            {'name': 'BananoFaucet.cc', 'dur': '1 Week'},
+            {'name': 'Prussia Faucet', 'dur': '1 Day'},
+            {'name': 'TNV Banano Faucet', 'dur': '1 Day'},
+            {'name': "iMalFect's faucet", 'dur': '1 Week'},
+            {'name': 'BananoPlanet.cc', 'dur': '2 Hours'},
+            {'name': 'BanBucket Ninja', 'dur': '15 Hours'},
+            {'name': 'BananoTime', 'dur': 'N/A'},
+            {'name': 'GorillaNation', 'dur': '1 Day'},
             {'name': 'GoBanano', 'dur': '1 Day', 'pay': 'N/A'},
-            {'name': 'BananoFaucet.club', 'dur': '1 Day', 'pay': '0.1 BAN'},
-            {'name': 'CSquared', 'dur': '1 Day', 'pay': '0.05 BAN'},
-            {'name': 'Bonobo', 'dur': '1 Week', 'pay': '0.07 BAN'},
-            {'name': 'Banboto\'s Future Faucet', 'dur': '1 Day', 'pay': '0.19 BAN'},
-            {'name': 'Baucarp Faucet', 'dur': '1 Day', 'pay': '0.05 BAN'},
-            {'name': 'OnlyBans Faucet', 'dur': '1 Day', 'pay': 'Varied'},
-            {'name': 'Earns.cc Faucet', 'dur': '1 Day', 'pay': 'N/A'},
-            {'name': 'MonkeyTalks Faucet', 'dur': '1 Day', 'pay': 'Varied'},
-            {'name': 'icanhaznano monke42 faucet', 'dur': '1 Day', 'pay': '0.01-0.19 BAN'},
-            {'name': 'TryBanano', 'dur': '1 Day', 'pay': '0.02 BAN'},
-            {'name': 'Barrel O\' Bananos', 'dur': 'N/A', 'pay': '0.19 BAN'},
-            {'name': 'BanHub', 'dur': '1 Day', 'pay': 'N/A'},
-            {'name': 'BananoForest', 'dur': '1 Day', 'pay': '0.42 BAN'},
-            {'name': 'BananoDrip', 'dur': '1 Day', 'pay': 'Varied'},
-            {'name': 'PerryPal', 'dur': '1 Day', 'pay': 'Varied'},
-            {'name': 'Pronouns Faucet', 'dur': '1 Day', 'pay': '0.75 BAN'},
-            {'name': 'Crypto Jungles', 'dur': '1 Day', 'pay': '0.1 BAN'}
+            {'name': 'BananoFaucet.club', 'dur': '1 Day'},
+            {'name': 'CSquared', 'dur': '1 Day'},
+            {'name': 'Bonobo', 'dur': '1 Week'},
+            {'name': 'Banboto\'s Future Faucet', 'dur': '1 Day'},
+            {'name': 'Baucarp Faucet', 'dur': '1 Day'},
+            {'name': 'OnlyBans Faucet', 'dur': '1 Day'},
+            {'name': 'Earns.cc Faucet', 'dur': '1 Day'},
+            {'name': 'MonkeyTalks Faucet', 'dur': '1 Day'},
+            {'name': 'icanhaznano monke42 faucet', 'dur': '1 Day'},
+            {'name': 'TryBanano', 'dur': '1 Day'},
+            {'name': 'Barrel O\' Bananos', 'dur': 'N/A'},
+            {'name': 'BanHub', 'dur': '1 Day'},
+            {'name': 'BananoForest', 'dur': '1 Day'},
+            {'name': 'BananoDrip', 'dur': '1 Day'},
+            {'name': 'PerryPal', 'dur': '1 Day'},
+            {'name': 'Pronouns Faucet', 'dur': '1 Day'},
+            {'name': 'Crypto Jungles', 'dur': '1 Day'}
 ]
 
     with ThreadPoolExecutor(max_workers=10) as pool:
@@ -181,8 +197,10 @@ def returndata():
             d['bal'] = "N/A"
             d['lasttx'] = "N/A"
             d['lasttx_hash'] = "N/A"
+            d['pay'] = "N/A"
         else:
             lasttx = last_tx(a)
+            d['pay'] = payout_minmax(a)
             d['bal'] = lasttx.bal
             d['lasttx'] = lasttx.timesincetx
             d['lasttx_hash'] = lasttx.hashlink
