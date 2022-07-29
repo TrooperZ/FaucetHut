@@ -203,7 +203,7 @@ def returndata():
         else:
             lasttx = last_tx(a)
             d['pay'] = lasttx.payoutamts
-            d['bal'] = round(float(balances[a]['balance_decimal']), 2)
+            d['bal'] = round(float(balances[a]['balance_decimal']), 2) 
             d['lasttx'] = lasttx.timesincetx
             d['lasttx_hash'] = lasttx.hashlink
         index1 = index1 + 1
