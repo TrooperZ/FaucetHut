@@ -21,6 +21,6 @@ def home():
 
     )
 
-@app.route('/api', methods=["POST"])
+@app.route('/api')
 def testpost():
-     return jsonify(faucetinfo.returndata())
+    return jsonify(faucetinfo.returndata())
