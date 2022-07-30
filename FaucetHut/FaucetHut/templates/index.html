@@ -51,6 +51,7 @@
         }
     </script>
     <h6>🔴 = Down, 🟡 = Up but may not be accessable, 🟢 = Up | These statuses may not be 100% accurate. Last transaction data is a better representation of faucet status.</h6>
+    <h5>Estimated earnings: {{estearns}}</h5>
     <button onclick="openFaucetList();" class="btn btn-primary btn-large"><div class="btntext">OPEN ALL (Popups need to be allowed)</div></button>
 
 
@@ -74,7 +75,7 @@
             <td>{{ dict_item['status'] }}</td>
             <td> {{ dict_item['name'] }}</td>
             <td> {{ dict_item['dur'] }}</td>
-            <td> {{ dict_item['paymin'] }} - {{ dict_item['paymax'] }}BAN</td>
+            <td> {{ dict_item['paymin'] }} - {{ dict_item['paymax'] }} BAN</td>
             <td> {{ dict_item['bal'] }} BAN</td>
             <td><a href="{{dict_item['lasttx_url']}}">{{ dict_item['lasttx_time'] }}</a> </td>
             <td><a href="{{dict_item['url']}}" target="_blank" class="btn btn-primary btn-large"><div class="btntext"> Claim &raquo;</div></a> </td>

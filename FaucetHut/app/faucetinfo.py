@@ -16,7 +16,7 @@ mpass = os.getenv('MONGO_PASS')
 client = pymongo.MongoClient(f"mongodb+srv://banfaucet:{mpass}@cluster0.qte9l.mongodb.net/?retryWrites=true&w=majority")
 db = client['urls']
 entries = db['entries']
-
+data = []
 scraper = cloudscraper.create_scraper()
 
 
@@ -209,5 +209,13 @@ def returndata():
 
 
     return data
+
+def total_earns():
+    minamt = 0
+    maxamt = 0
+    for i in data:
+        minamt += i['paymin']
+        maxamt += i['paymax']
+
 
 
