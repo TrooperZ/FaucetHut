@@ -211,11 +211,13 @@ def returndata():
     return data
 
 def total_earns():
-    minamt = 0
-    maxamt = 0
+    class earns:
+        minamt = 0
+        maxamt = 0
     for i in data:
         minamt += i['paymin']
         maxamt += i['paymax']
 
+    return earns
 
 

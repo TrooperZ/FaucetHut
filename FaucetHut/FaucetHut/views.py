@@ -18,7 +18,8 @@ def home():
         title='Home',
         year=datetime.now().year,
         acclist=faucetinfo.returndata(),
-        estearns=faucetinfo.total_earns(),
+        minearn=faucetinfo.total_earns().minamt,
+        maxearn=faucetinfo.total_earns().maxamt,
 
     )
 
