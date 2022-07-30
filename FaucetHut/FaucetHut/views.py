@@ -13,13 +13,19 @@ from app import faucetinfo
 @app.route('/home')
 def home():
     """Renders the home page."""
+    data = faucetinfo.returndata()
+    minamt = 0
+    maxamt = 0
+    for i in data:
+        minamt += i['paymin']
+        maxamt += i['paymax']
     return render_template(
         'index.html',
         title='Home',
         year=datetime.now().year,
-        acclist=faucetinfo.returndata(),
-        minearn=faucetinfo.total_earns().minamt,
-        maxearn=faucetinfo.total_earns().maxamt,
+        acclist=data,
+        minearn=minamt,
+        maxearn=maxamt,
 
     )
 

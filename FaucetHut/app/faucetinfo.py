@@ -218,6 +218,6 @@ def total_earns():
         minamt += i['paymin']
         maxamt += i['paymax']
 
-    return earns
+    return 
 
 
