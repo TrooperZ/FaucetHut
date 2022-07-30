@@ -3,9 +3,11 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template
+from flask import render_template, request, jsonify
 from FaucetHut import app
 from app import faucetinfo
+
+
 
 @app.route('/')
 @app.route('/home')
@@ -18,3 +20,7 @@ def home():
         acclist=faucetinfo.returndata(),
 
     )
+
+@app.route('/api', methods=["POST"])
+def testpost():
+     return jsonify(faucetinfo.returndata())
