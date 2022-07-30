@@ -58,6 +58,7 @@ def last_tx(acc):
         timesincetx = display_time(int(time.time() - int(history[0]['local_timestamp'])))
         hashlink = "https://creeper.banano.cc/hash/" + history[0]['hash']
         payoutamts = str(formatNumber(round(min(payoutamts_list), 3))) + "-" + str(formatNumber(round(max(payoutamts_list), 3)))
+        hash = history[0]['hash']
     return tx
 
 def check_bal(accs):
@@ -204,8 +205,9 @@ def returndata():
             lasttx = last_tx(a)
             d['pay'] = lasttx.payoutamts
             d['bal'] = round(float(balances[a]['balance_decimal']), 2) 
-            d['lasttx'] = lasttx.timesincetx
-            d['lasttx_hash'] = lasttx.hashlink
+            d['lasttx_time'] = lasttx.timesincetx
+            d['lasttx_url'] = lasttx.hashlink
+            d['lasttx_hash'] = lasttx.hash
         index1 = index1 + 1
 
 
