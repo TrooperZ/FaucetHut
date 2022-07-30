@@ -9,6 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 import asyncio
 import libs.bananopy as ban
 import requests
+#from replit import db
 
 load_dotenv()
 mpass = os.getenv('MONGO_PASS')
@@ -57,7 +58,8 @@ def last_tx(acc):
     class tx:
         timesincetx = display_time(int(time.time() - int(history[0]['local_timestamp'])))
         hashlink = "https://creeper.banano.cc/hash/" + history[0]['hash']
-        payoutamts = str(formatNumber(round(min(payoutamts_list), 3))) + "-" + str(formatNumber(round(max(payoutamts_list), 3)))
+        payoutmin = formatNumber(round(min(payoutamts_list), 3))
+        payoutmax = formatNumber(round(max(payoutamts_list), 3))
         hash = history[0]['hash']
     return tx
 
@@ -203,7 +205,8 @@ def returndata():
             d['pay'] = "N/A"
         else:
             lasttx = last_tx(a)
-            d['pay'] = lasttx.payoutamts
+            d['paymin'] = lasttx.payoutmin
+            d['paymax'] = lasttx.payoutmax
             d['bal'] = round(float(balances[a]['balance_decimal']), 2) 
             d['lasttx_time'] = lasttx.timesincetx
             d['lasttx_url'] = lasttx.hashlink
