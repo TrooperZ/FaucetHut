@@ -198,19 +198,13 @@ def returndata():
     for (a, c, d) in zip(addrs, returned, data):
         d['status'] = c
         d['url'] = urls[index1] 
-        if a == "N/A":
-            d['bal'] = "N/A"
-            d['lasttx'] = "N/A"
-            d['lasttx_hash'] = "N/A"
-            d['pay'] = "N/A"
-        else:
-            lasttx = last_tx(a)
-            d['paymin'] = lasttx.payoutmin
-            d['paymax'] = lasttx.payoutmax
-            d['bal'] = round(float(balances[a]['balance_decimal']), 2) 
-            d['lasttx_time'] = lasttx.timesincetx
-            d['lasttx_url'] = lasttx.hashlink
-            d['lasttx_hash'] = lasttx.hash
+        lasttx = last_tx(a)
+        d['paymin'] = lasttx.payoutmin
+        d['paymax'] = lasttx.payoutmax
+        d['bal'] = round(float(balances[a]['balance_decimal']), 2) 
+        d['lasttx_time'] = lasttx.timesincetx
+        d['lasttx_url'] = lasttx.hashlink
+        d['lasttx_hash'] = lasttx.hash
         index1 = index1 + 1
 
 
