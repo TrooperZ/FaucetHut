@@ -6,6 +6,7 @@ from datetime import datetime
 from flask import render_template, request, jsonify
 from FaucetHut import app
 from app import faucetinfo
+from .forms import addressChecker
 
 
 
@@ -26,7 +27,6 @@ def home():
         acclist=data,
         minearn=minamt,
         maxearn=maxamt,
-
     )
 
 @app.route('/api')
