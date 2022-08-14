@@ -143,6 +143,7 @@ intervals = (
     ("s", 1),
 )
 
+headers = {"User-Agent": "Mozilla/5.0 (X11; CrOS x86_64 12871.102.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.141 Safari/537.36"}
 
 def display_time(seconds, granularity=2):
     result = []
@@ -190,10 +191,7 @@ def check_bal(accs):
 
 def checksite_cmd(url):
     try:
-       
-        # pass the url into
-        # request.hear
-        headers = {"User-Agent": "Mozilla/5.0 (X11; CrOS x86_64 12871.102.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.141 Safari/537.36"}
+
         response = scraper.head(url, headers=headers)
          
         # check the status code
@@ -255,15 +253,15 @@ def returndata():
 
 def returndata_nonf():
     index1 = 0    
-    balances = check_bal(addrs)
+    balances = check_bal(g_addrs)
 
     with ThreadPoolExecutor(max_workers=10) as pool:
-        returned1 = list(pool.map(checksite,urls,addrs))
-        returned2 = list(pool.map(last_tx,addrs))
+        returned1 = list(pool.map(checksite,g_urls,g_addrs))
+        returned2 = list(pool.map(last_tx,g_addrs))
 
-    for (a, c, d, z) in zip(addrs, returned1, data, returned2):
+    for (a, c, d, z) in zip(g_addrs, returned1, g_data, returned2):
         d['status'] = c
-        d['url'] = urls[index1] 
+        d['url'] = g_urls[index1] 
         d['paymin'] = z.payoutmin
         d['paymax'] = z.payoutmax        
       
@@ -274,10 +272,4 @@ def returndata_nonf():
         index1 = index1 + 1
 
 
-    return data
-
-def combineddata():
-  data1 = returndata_nonf()
-  data2 = returndata()
-  return data2 + data1
-
+    return g_data

@@ -14,7 +14,7 @@ from flask_limiter.util import get_remote_address
 limiter = Limiter(
     app,
     key_func=get_remote_address,
-    default_limits=["10000 per day", "120 per hour"]
+    default_limits=["69000 per day", "420 per hour"]
 )
 
 @app.route('/')
@@ -37,9 +37,13 @@ def home():
       gamelist=faucetinfo.returndata_nonf()
     )
 
-@app.route('/api')
-def testpost():
-    return jsonify(faucetinfo.combineddata())
+@app.route('/api_faucet')
+def faucet_api():
+    return jsonify(faucetinfo.returndata())
+
+@app.route('/api_game')
+def game_api():
+    return jsonify(faucetinfo.returndata_nonf())
 
 @app.route('/api_info')
 def apiinfo():

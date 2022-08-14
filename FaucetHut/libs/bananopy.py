@@ -1,7 +1,7 @@
 import requests
 import time
 
-API = 'https://public.node.jungletv.live/rpc'
+API = 'https://kaliumapi.appditto.com/api'
 API_vault = 'https://vault.banano.cc/api/node-api'
 
 
