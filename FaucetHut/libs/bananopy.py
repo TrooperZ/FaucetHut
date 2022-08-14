@@ -1,13 +1,30 @@
 import requests
+import time
 
-API = 'https://kaliumapi.appditto.com/api'
+API = 'https://public.node.jungletv.live/rpc'
+API_vault = 'https://vault.banano.cc/api/node-api'
 
 
 def post_get(API, payload):
     resp = requests.post(API, json=payload)
     json_resp = resp.json()
     return json_resp
+  
+def recieveable(account):
+    payload = {"action": "pending",
+               "account": account}
+    response = post_get(API, payload)
+    block_count = response['blocks']
+    return block_count
 
+def work(hash):
+    payload = {
+  "action": "work_generate",
+  "hash": hash}
+    response = post_get(API, payload)
+    return response
+
+  
 
 def get_account_balance(account):
     class Balance:
@@ -119,6 +136,7 @@ def get_accounts_frontiers(accounts):
     payload = {"action": "accounts_frontiers",
                "account": accounts}
     response = post_get(API, payload)
+    print(response)
     frontiers = response['frontiers']
     return frontiers
 
@@ -134,6 +152,13 @@ def get_accounts_pending(accounts, threshold=0, source="false", include_active="
     response = post_get(API, payload)
     blocks = response['blocks']
     return blocks
+  
+def get_accounts_pendingV2(accounts, threshold=0, source="false", include_active="false", sorting="false", include_only_confirmed="false"):
+    payload = {"action": "accounts_pending",
+               "account": accounts,}
+    response = post_get(API, payload)
+    blocks = response['blocks']
+    return blocks  
 
 
 def get_active_difficulty(include_trend="false"):
@@ -217,6 +242,7 @@ def create_block(block_type, balance, key, representative, link, previous):
         block = []
     block = Block()
     payload = {"action": "block_create",
+               "json_block": "true",
                "type": block_type,
                "balance": balance,
                "key": key,
@@ -224,10 +250,12 @@ def create_block(block_type, balance, key, representative, link, previous):
                "link": link,
                "previous": previous}
     response = post_get(API, payload)
-    block.block_hash = response['hash']
-    block.difficulty = response['difficulty']
-    block.block = response['block']
-    return block
+    print(response)
+    #block.block_hash = response['hash']
+    #block.difficulty = response['difficulty']
+    #block.block = response['block']
+    #return block
+    return response
 
 
 def get_hash(block_type, account, previous, representative, balance, link, link_as_account, signature, work):
@@ -259,11 +287,14 @@ def get_block_info(block_hash):
         confirmed = ""
         contents = []
         subtype = ""
+        prev = ""
     block = Block()
     payload = {"action": "block_info",
+               "json_block": "true",
                "hash": block_hash}
     response = post_get(API, payload)
     block.block_account = response['block_account']
+    block.prev = response['successor']
     block.amount = response['amount']
     block.balance = response['balance']
     block.height = response['height']
@@ -271,7 +302,8 @@ def get_block_info(block_hash):
     block.confirmed = response['confirmed']
     block.contents = response['contents']
     block.subtype = response['subtype']
-    return block
+    #return block
+    return response
 
 
 def get_blocks(hashes):
@@ -504,6 +536,7 @@ def get_frontiers(account, count=-1):
                "account": account,
                "count": count}
     response = post_get(API, payload)
+    print(response)
     frontiers = response["frontiers"]
     return frontiers
 
@@ -619,6 +652,7 @@ def pending_exists(block_hash, include_active="false", include_only_confirmed="f
 def process(block_type, account, previous, representative, balance, link, link_as_account, signature, work, subtype="", force="false"):
     payload = {"action": "process",
                "subtype": subtype,
+               "json_block": "true",
                "block": {
                    "type": block_type,
                    "account": account,
@@ -632,6 +666,7 @@ def process(block_type, account, previous, representative, balance, link, link_a
                "force": force
                }
     response = post_get(API, payload)
+    print(response)
     exists = response["exists"]
     return exists
 
@@ -968,6 +1003,7 @@ def receive(wallet, account, block):
         "account": account,
         "block": block}
     response = post_get(API, payload)
+    print(response)
     block = response['block']
     return block
 
