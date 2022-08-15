@@ -163,14 +163,18 @@ def formatNumber(num):
     return num
 
 def last_tx(acc):
+    nameacc = f"lasttx{acc}"
     try:
-      history = db[acc + "_lastx"]
+      history = db[nameacc]
       if time.time() - history['time'] > 300:
         history = ban.get_account_history(acc, 100).history
-        db[acc + "_lasttx"] = {'status':history, 'time':time.time()}  
-    except KeyError:
+        time.sleep(0.05)
+        db[nameacc] = {'history':history, 'time':time.time()}  
+    except KeyError or TypeError:
       history = ban.get_account_history(acc, 100).history
-      db[acc + "_lasttx"] = {'history':history, 'time':time.time()}
+      time.sleep(0.05)
+      db[nameacc] = {'history':history, 'time':time.time()}
+    history = db[nameacc]['history']
     payoutamts_list = []
     for i in history:
         if i['type'] == "receive":
@@ -229,9 +233,9 @@ def returndata():
 
     with ThreadPoolExecutor(max_workers=10) as pool:
         returned1 = list(pool.map(checksite,urls,addrs))
-        returned2 = list(pool.map(last_tx,addrs))
 
-    for (a, c, d, z) in zip(addrs, returned1, data, returned2):
+    for (a, c, d) in zip(addrs, returned1, data):
+        z = last_tx(a)
         d['status'] = c
         d['url'] = urls[index1] 
         d['paymin'] = z.payoutmin
@@ -257,9 +261,9 @@ def returndata_nonf():
 
     with ThreadPoolExecutor(max_workers=10) as pool:
         returned1 = list(pool.map(checksite,g_urls,g_addrs))
-        returned2 = list(pool.map(last_tx,g_addrs))
 
-    for (a, c, d, z) in zip(g_addrs, returned1, g_data, returned2):
+    for (a, c, d) in zip(g_addrs, returned1, g_data):
+        z = last_tx(a)
         d['status'] = c
         d['url'] = g_urls[index1] 
         d['paymin'] = z.payoutmin

@@ -20,6 +20,7 @@ limiter = Limiter(
 @app.route('/')
 @app.route('/home')
 def home():
+    print('Loading home')
     """Renders the home page."""
     data = faucetinfo.returndata()
     minamt = 0
@@ -39,16 +40,26 @@ def home():
 
 @app.route('/api_faucet')
 def faucet_api():
+    print('Loading faucet api')  
     return jsonify(faucetinfo.returndata())
 
 @app.route('/api_game')
 def game_api():
+    print('Loading game api') 
     return jsonify(faucetinfo.returndata_nonf())
 
 @app.route('/api_info')
 def apiinfo():
+    print('Loading apiinfo')  
     return render_template(
         'api_info.html',
         title='API Info',
         year=datetime.now().year,
+    )
+
+@app.route('/banano.json')
+def jsonban():
+    print('Loading banano.json')  
+    return render_template(
+        'banano.json',
     )
