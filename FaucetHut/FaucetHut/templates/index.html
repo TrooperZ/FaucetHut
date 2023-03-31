@@ -1,0 +1,127 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+<center>
+    <h1>TrooperZ's Banano Faucet Hut</h1>
+    <h4>Welcome to a collection of Banano faucets and games! This site contains almost all of the ways to earn Banano for free! More features are to come, so check back often.</h4>
+    <h4>To add a new faucet/game to the collection or report an issue/suggestions, or if you would like your faucet at the top of the list, contact me at TrooperZ#7824 on the Banano Discord server.</h4>  
+    <p>Donations are welcome at <em><strong>ban_396zzoypz8pabdtagh5enoa55pu7izwmzzf3a1qp5shmtqfbc8cxsfrfsgzj</strong></em></h3>
+    <p>Please disable ad block as well to support the site. We do not show intrusive ads.</h3>
+    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script>
+</center>
+<center><iframe data-aa='2054440' src='//acceptable.a-ads.com/2054440' style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'></iframe></center>
+
+   <div class="jumbotron">
+         <div class="coinmarketcap-currency-widget" data-currencyid="4704" data-base="USD" data-secondary="BTC" data-ticker="true" data-rank="true" data-marketcap="true" data-volume="true" data-statsticker="true" data-stats="USD"></div>
+    <h2>Banano Faucets | <a href="api_info">API</a></h2>
+    <p>Refresh to update the list, it may take a while as it pings each faucet.</p> 
+    <script>
+        const arrFaucet = [
+            "https://nanswap.com/get-free-banano?ref=tbanhut",
+            "http://bananofaucet.cc/",
+            "http://faucet.prussia.dev/",
+            "https://givemefruit.com/",
+            "https://banano-faucet.herokuapp.com/",
+            "https://banfaucet.com/?r=23786",
+            "https://getbanano.cc/",
+            "https://bananoplanet.cc/faucet",
+            "https://www.banbucket.ninja",
+            "https://faucet.bananotime.com/",
+            "https://gorillanation.cc/",
+            "https://gobanano.com/home",
+            "https://www.bananofaucet.club/",
+            "https://getban.csquared.nz/",
+            "https://bonobo.cc/faucet",
+            "https://faucet.banoboto.repl.co/",
+            'https://baucarp.herokuapp.com/',
+            'https://www.only-bans.cc/',
+            'https://ban.earns.cc/',
+            'https://monkeytalks.cc/',
+            'https://icanhaznano.monke42.tk/',
+            'https://trybanano.com/',
+            'https://www.devinmontes.com/',
+            'https://banhub.com/',
+            'https://faucet.bananoforest.com/',
+            'https://bananodrip.com/',
+            'https://banfaucet.perrypal21.repl.co/',
+            'https://pronouns.h.prussiafan.club/',
+            'https://www.cryptojungles.com/',
+            'https://yet-another-ban-faucet.herokuapp.com/',
+        ];
+        function openFaucetList() {
+            arrFaucet.forEach(openFaucet);
+        }
+        function openFaucet(faucetUrl) {
+            window.open(faucetUrl, Math.random().toString(36).substr(2, 9));
+        }
+    </script>
+    <h6>🔴 = Down, 🟡 = Up but may not be accessable, 🟢 = Up | These statuses may not be 100% accurate. Last transaction data is a better representation of faucet status.</h6>
+    <h5>Estimated earnings: {{minearn}} - {{maxearn}} BAN</h5>
+    <button onclick="openFaucetList();" class="btn btn-primary btn-large"><div class="btntext">OPEN ALL (Popups need to be allowed)</div></button>
+
+
+    <br />
+   <div class="table-responsive"> 
+    <table style="width:100%">
+        {% if acclist %}
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Duration</th>
+            <th>Payout</th>
+            <th>Balance</th>
+            <th>Last TX</th>
+            <th></th>
+        </tr>
+        {% endif %}
+
+        <!-- table rows -->
+        {% for dict_item in acclist %}
+        <tr>
+            <td>{{ dict_item['status'] }}</td>
+            <td> {{ dict_item['name'] }}</td>
+            <td> {{ dict_item['dur'] }}</td>
+            <td> {{ dict_item['paymin'] }} - {{ dict_item['paymax'] }} BAN</td>
+            <td> {{ dict_item['bal'] }} BAN</td>
+            <td><a href="{{dict_item['lasttx_url']}}">{{ dict_item['lasttx_time'] }}</a> </td>
+            <td><a href="{{dict_item['url']}}" target="_blank" class="btn btn-primary btn-large"><div class="btntext"> Claim &raquo;</div></a> </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+   </div>   
+    <br />
+
+</div>
+
+ <div class="jumbotron">
+    <h2>Banano Games & Non Classic Faucet Ways to Earn</h2>
+       <div class="table-responsive"> 
+    <table style="width:100%">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Balance</th>
+        <th>Last TX</th>
+        <th></th>
+      </tr>
+        {% for dict_item in gamelist %}
+        <tr>
+            <td>{{ dict_item['status'] }}</td>
+            <td> {{ dict_item['name'] }}</td>
+            <td> {{ dict_item['des'] }}</td>
+            <td> {{ dict_item['bal'] }} BAN</td>
+            <td><a href="{{dict_item['lasttx_url']}}">{{ dict_item['lasttx_time'] }}</a> </td>
+            <td><a href="{{dict_item['url']}}" target="_blank" class="btn btn-primary btn-large"><div class="btntext"> Claim &raquo;</div></a> </td>
+        </tr>
+        {% endfor %}
+    </table>
+       </div>
+        </div>
+   
+<center><iframe data-aa='2054447' src='//acceptable.a-ads.com/2054447' style='border:0px; padding:0; width:100%; height:100%; overflow:hidden; background-color: transparent;'></iframe></center>
+
+
+
+{% endblock %}
