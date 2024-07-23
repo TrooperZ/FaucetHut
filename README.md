@@ -1,8 +1,8 @@
 # FaucetHut
 Github Repo for Trooper's Banano Faucet Hub.
 
-**THIS WEBSITE IS NOW DEFUNCT DUE TO REPLIT CHANGES.**
-I enjoyed making this, but sadly it has died due to repl.it making changes for websites and I couldn't keep it running 24/7 by pinging it frequently. I may not bring this back.
+**Website does not run 24/7 due to repl.it changes.**
+I enjoyed making this, but sadly it has died due to repl.it making changes for websites and I couldn't keep it running 24/7 by pinging it frequently.
 
 https://faucethut.trooperz.repl.co/
 
